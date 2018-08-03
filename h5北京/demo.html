@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="scss/style.css">
+    <script>    
+        document.documentElement.style.fontSize=window.innerWidth/750*100+'px'
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <header>
+            <a href="javascript:;"><</a>
+            <span>北京</span>
+            <a href="javascript:;">地图</a>
+        </header>
+        <nav class="nav">
+            <ul>
+                <li class="active">门票</li>
+                <li>酒店</li>
+                <li>套餐</li>
+                <li>购物</li>
+            </ul>    
+        </nav>
+        <section>
+            <div class="con">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="content con1 swiper-slide">
+                            <div class="sousuo">
+                                <input type="text" placeholder="搜索景点名称">
+                            </div>
+                            <div class="list">
+                                <!-- <dl>
+                                    <dt><img src="img/1.jpg" alt=""></dt>
+                                    <dd>
+                                        <h2>北京杜莎夫人蜡像馆</h2>
+                                        <p>
+                                            <span>本期热卖</span>
+                                            <b>￥150</b>
+                                        </p>
+                                        <p class="p">
+                                            <em>已订1598，5.0分</em>
+                                            <del>￥170</del>
+                                        </p>
+                                        <div class="right">></div>
+                                    </dd>
+                                </dl> -->
+                                <!-- <dl>
+                                    <dt><img src="img/1.jpg" alt=""></dt>
+                                    <dd>
+                                        <h2>北京杜莎夫人蜡像馆</h2>
+                                        <p>
+                                            <span>本期热卖</span>
+                                            <b>￥150</b>
+                                        </p>
+                                        <p class="p">
+                                            <em>已订1598，5.0分</em>
+                                            <del>￥170</del>
+                                        </p>
+                                    </dd>
+                                </dl> -->
+                            </div>
+                        </div>
+                        <div class="con1 swiper-slide"><div>2222</div></div>
+                        <div class="con1 swiper-slide"><div>33333</div></div>
+                        <div class="con1 swiper-slide"><div>44444</div></div> 
+                    </div>
+                </div>
+        </section>
+    </div>
+    <script src="js/flexible.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="swiper/swiper.js"></script>
+    <script>
+        $.ajax({
+            url:'data/data.json',
+            success:function(rs){
+                render(rs)
+            }
+        })
+        var str='';
+        function render(data){
+            $.each(data,function(i,val){
+                $.each(val,function(a,b){
+                     str +=`<dl>
+                                    <dt><img src="${b.src}" alt=""></dt>
+                                    <dd>
+                                        <h2>${b.tit}</h2>
+                                        <p>
+                                            <span>${b.hot}</span>
+                                            <b>${b.newpri}</b>
+                                        </p>
+                                        <p class="p">
+                                            <em>已订${b.num}</em>
+                                            <del>${b.oldpri}</del>
+                                        </p>
+                                        <div class="right">></div>
+                                    </dd>
+                                </dl>`      
+                })
+                 
+            })
+            $('.list').append(str)
+        }
+        $('.nav li').on('click',function(){
+            var ind=$(this).index();
+            $('.nav li').eq(ind).addClass('active').siblings().removeClass('active');
+            $('.con1').eq(ind).show().siblings().hide();
+        })
+        var mySwiper=new Swiper('.swiper-container',{
+            on:{
+                // slideChangeTransitionStart:function(){
+                //     var n=this.activeIndex;
+                //     $('.nav li').eq(n).addClass('active').siblings().removeClass('active');
+                // }
+            }
+        })
+        // $('.nav li').on('click',function(){
+        //     var index=$(this).index();
+        //     mySwiper.slideTo(index)
+        // })
+    </script>
+</body>
+</html>
